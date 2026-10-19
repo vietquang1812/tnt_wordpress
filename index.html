@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="CÔNG TY CỔ PHẦN VẬT TƯ CÔNG NGHIỆP TNT - Phụ kiện inox, van đường ống, co-cút-tê, mặt bích chất lượng cho hệ thống hơi nóng, khí nén và PCCC tại Đà Nẵng."
+    />
+    <title>TNT Industrial Steel & PCCC | Vật Tư Công Nghiệp Đà Nẵng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              steelLight: '#F8FAFC',
+              industrialSlate: '#0F172A',
+              deepCharcoal: '#1E293B',
+              steelGrey: '#475569',
+              fireRed: '#E11D48',
+              valveAmber: '#D97706'
+            },
+            fontFamily: {
+              sans: ['Be Vietnam Pro', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace']
+            },
+            boxShadow: {
+              soft: '0 18px 45px -18px rgba(15, 23, 42, 0.35)'
+            }
+          }
+        }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: 'Be Vietnam Pro', sans-serif;
+      }
+
+      .text-balance {
+        text-wrap: balance;
+      }
+
+      .shimmer {
+        background: linear-gradient(120deg, rgba(255,255,255,0.1), rgba(255,255,255,0.45), rgba(255,255,255,0.1));
+        background-size: 200% 100%;
+        animation: shimmer 3s linear infinite;
+      }
+
+      @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+
+      .pulse-dot {
+        animation: pulseDot 1.5s ease-in-out infinite;
+      }
+
+      @keyframes pulseDot {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.35); opacity: 0.7; }
+      }
+    </style>
+  </head>
+  <body class="bg-steelLight text-slate-900 antialiased">
+    <div class="bg-industrialSlate text-slate-100">
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2.5 text-[11px] sm:text-xs lg:px-8">
+        <div class="flex items-center gap-2 text-slate-300">
+          <span class="inline-flex h-2 w-2 rounded-full bg-emerald-400 pulse-dot"></span>
+          <span>Kho hàng KCN Hòa Khánh, Q. Liên Chiểu, TP. Đà Nẵng | Sẵn kho SUS304/SUS316</span>
+        </div>
+        <div class="flex items-center gap-2 font-medium text-slate-100">
+          <span class="inline-flex h-2 w-2 rounded-full bg-fireRed pulse-dot"></span>
+          <span>Hotline Kho Đà Nẵng: 0905.XXX.XXX</span>
+        </div>
+      </div>
+    </div>
+
+    <header class="sticky top-0 z-50 border-b border-slate-200/80 bg-industrialSlate/90 shadow-sm backdrop-blur-md">
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-5 px-4 py-4 lg:px-8">
+        <a href="#home" class="flex items-center gap-3">
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-fireRed to-orange-500 shadow-lg shadow-fireRed/20">
+            <span class="font-black tracking-tight text-white">TNT</span>
+          </div>
+          <div class="leading-tight">
+            <div class="text-lg font-black uppercase tracking-[0.16em] text-white">TNT</div>
+            <div class="text-[10px] font-medium uppercase tracking-[0.22em] text-slate-300">Industrial Steel &amp; PCCC</div>
+          </div>
+        </a>
+
+        <nav class="hidden items-center gap-7 text-sm font-medium text-slate-200 lg:flex">
+          <a href="#home" class="transition hover:text-white">Trang Chủ</a>
+          <a href="#products" class="transition hover:text-white">Van Inox</a>
+          <a href="#products" class="transition hover:text-white">Co/Cút/Tê</a>
+          <a href="#products" class="transition hover:text-white">Mặt Bích</a>
+          <a href="#standards" class="transition hover:text-white">Tiêu Chuẩn Kỹ Thuật</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <button
+            type="button"
+            class="hidden rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/10 sm:inline-flex"
+          >
+            Zalo KT
+          </button>
+          <button
+            type="button"
+            x-on:click="openModal = true"
+            class="inline-flex items-center justify-center rounded-full bg-fireRed px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-fireRed/30 transition hover:-translate-y-0.5 hover:bg-red-600 active:scale-95"
+          >
+            Báo Giá Công Trình
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="home">
+      <section class="relative overflow-hidden">
+        <div class="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=1600"
+            alt="Industrial pipeline and stainless steel valves"
+            class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+          />
+          <div class="absolute inset-0 bg-gradient-to-r from-industrialSlate via-industrialSlate/85 to-slate-900/55"></div>
+        </div>
+
+        <div class="relative mx-auto max-w-7xl px-4 pb-16 pt-16 lg:px-8 lg:pb-20 lg:pt-20">
+          <div class="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+            <div class="max-w-xl text-white">
+              <div class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-slate-100 backdrop-blur-sm">
+                <span class="inline-flex h-2 w-2 rounded-full bg-amber-400"></span>
+                Sẵn kho Đà Nẵng - Giao 24h
+              </div>
+              <h1 class="mt-6 text-balance text-4xl font-black leading-tight tracking-[-0.04em] text-white sm:text-5xl lg:text-6xl">
+                BÀN GIAO PHỤ KIỆN INOX &amp; VAN ĐƯỜNG ỐNG TẬN CHÂN CÔNG TRÌNH TẠI ĐÀ NẴNG
+              </h1>
+              <p class="mt-5 max-w-lg text-base leading-7 text-slate-200/95">
+                Chuyên cung cấp van, co/cút, tê, mặt bích và phụ kiện inox SUS304/SUS316 cho hệ thống hơi nóng, khí nén, cấp thoát nước và PCCC theo tiêu chuẩn kỹ thuật công trình.
+              </p>
+
+              <div class="mt-8 flex flex-wrap gap-3">
+                <a
+                  href="#products"
+                  class="inline-flex items-center justify-center rounded-full bg-fireRed px-5 py-3 text-sm font-semibold text-white shadow-xl shadow-fireRed/30 transition hover:-translate-y-0.5 hover:bg-red-600 active:scale-95"
+                >
+                  Tra Cứu Thông Số DN / SCH
+                </a>
+                <a
+                  href="#contact"
+                  class="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10 active:scale-95"
+                >
+                  Tải Catalogue TNT (PDF)
+                </a>
+              </div>
+
+              <div class="mt-8 grid gap-4 sm:grid-cols-3">
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+                  <div class="text-2xl font-black text-white">500+</div>
+                  <div class="mt-1 text-xs uppercase tracking-[0.18em] text-slate-300">Dự án vận hành</div>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+                  <div class="text-2xl font-black text-white">24h</div>
+                  <div class="mt-1 text-xs uppercase tracking-[0.18em] text-slate-300">Giao hàng nhanh</div>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+                  <div class="text-2xl font-black text-white">CO/CQ</div>
+                  <div class="mt-1 text-xs uppercase tracking-[0.18em] text-slate-300">Chứng nhận đầy đủ</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="relative">
+              <div class="rounded-[28px] border border-white/15 bg-white/10 p-3 shadow-soft backdrop-blur-sm">
+                <div class="overflow-hidden rounded-[22px] border border-slate-200/10 bg-slate-950">
+                  <img
+                    src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=1200"
+                    alt="Stainless steel piping and industrial fittings"
+                    class="h-[430px] w-full object-cover"
+                  />
+                </div>
+                <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                  <div class="rounded-2xl bg-slate-900/90 p-4 text-white ring-1 ring-white/10">
+                    <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-300">
+                      <span class="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+                      SẮN KHO ĐÀ NẴNG
+                    </div>
+                    <div class="mt-3 font-mono text-2xl font-bold text-white">DN15 - DN200</div>
+                    <div class="mt-1 text-sm text-slate-300">Inox SUS304 / SUS316 / Sch10 / Sch40</div>
+                  </div>
+                  <div class="rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 p-4 text-white shadow-lg">
+                    <div class="text-xs font-semibold uppercase tracking-[0.16em] text-amber-100">TƯ VẤN NHANH</div>
+                    <div class="mt-3 text-2xl font-black">0905.XXX.XXX</div>
+                    <div class="mt-1 text-sm text-amber-50/90">Đội ngũ kỹ thuật hỗ trợ quyết toán kỹ thuật</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="products" class="mx-auto max-w-7xl px-4 py-20 lg:px-8">
+        <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-[0.2em] text-fireRed">Spec-first</div>
+            <h2 class="mt-2 text-3xl font-black tracking-[-0.04em] text-industrialSlate sm:text-4xl">
+              Tra cứu thông số kỹ thuật nhanh
+            </h2>
+          </div>
+          <div class="flex items-center gap-2 rounded-full border border-slate-200 bg-white p-2 shadow-sm">
+            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-700"><i data-lucide="search" class="h-4 w-4"></i></span>
+            <input
+              type="text"
+              placeholder="Tìm theo sản phẩm, quy cách DN, mã code..."
+              class="w-full bg-transparent px-2 py-1.5 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none md:w-80"
+              x-model.debounce.250ms="query"
+            />
+          </div>
+        </div>
+
+        <div x-data="{
+          activeTab: 'all',
+          query: '',
+          openModal: false,
+          products: [
+            { name: 'Co 90° Inox SCH40', category: 'co', code: 'F-90-SS', dn: 'DN50', standard: 'ASME B36.10M', connection: 'Hàn Butt-Weld', material: 'SUS304', action: 'Báo giá' },
+            { name: 'Tê Đúc Inox Class 150', category: 'te', code: 'TEE-150', dn: 'DN80', standard: 'ASME B16.11', connection: 'Nối Ren NPT', material: 'SUS316', action: 'Báo giá' },
+            { name: 'Van Bi Inox PN16', category: 'van', code: 'V-BALL-16', dn: 'DN65', standard: 'DIN PN16', connection: 'Mặt bích / Nối ren', material: 'SUS316', action: 'Báo giá' },
+            { name: 'Mặt Bích Inox JIS 10K', category: 'matbich', code: 'FLG-10K', dn: 'DN100', standard: 'JIS B2220', connection: 'Mặt bích', material: 'SUS304', action: 'Báo giá' },
+            { name: 'Y Lọc Đĩa Inox', category: 'van', code: 'Y-STR-SS', dn: 'DN40', standard: 'API 602', connection: 'Hàn Socket', material: 'SUS316', action: 'Báo giá' },
+            { name: 'Cút Giảm Inox 45°', category: 'co', code: 'RED-45', dn: 'DN32 x 25', standard: 'ASME B16.9', connection: 'Hàn Butt-Weld', material: 'SUS304', action: 'Báo giá' },
+            { name: 'Van Một Chiều Inox', category: 'van', code: 'CHK-150', dn: 'DN80', standard: 'Class 150', connection: 'Nối Ren BSPT', material: 'SUS316', action: 'Báo giá' },
+            { name: 'Măng Xông Ren Inox', category: 'co', code: 'NIP-SS', dn: 'DN25', standard: 'NPT/BSPT', connection: 'Ren', material: 'SUS304', action: 'Báo giá' }
+          ],
+          filteredProducts() {
+            const query = this.query.trim().toLowerCase();
+            return this.products.filter((item) => {
+              const matchesTab = this.activeTab === 'all' || item.category === this.activeTab;
+              const haystack = `${item.name} ${item.code} ${item.dn} ${item.standard}`.toLowerCase();
+              const matchesQuery = !query || haystack.includes(query);
+              return matchesTab && matchesQuery;
+            });
+          }
+        }">
+          <div class="mb-6 flex flex-wrap gap-2">
+            <button
+              type="button"
+              @click="activeTab = 'all'"
+              :class="activeTab === 'all' ? 'bg-industrialSlate text-white' : 'bg-white text-slate-600 hover:bg-slate-100'"
+              class="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold transition"
+            >
+              Tất Cả
+            </button>
+            <button
+              type="button"
+              @click="activeTab = 'co'"
+              :class="activeTab === 'co' ? 'bg-industrialSlate text-white' : 'bg-white text-slate-600 hover:bg-slate-100'"
+              class="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold transition"
+            >
+              Co/Cút/Tê
+            </button>
+            <button
+              type="button"
+              @click="activeTab = 'van'"
+              :class="activeTab === 'van' ? 'bg-industrialSlate text-white' : 'bg-white text-slate-600 hover:bg-slate-100'"
+              class="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold transition"
+            >
+              Van Inox
+            </button>
+            <button
+              type="button"
+              @click="activeTab = 'matbich'"
+              :class="activeTab === 'matbich' ? 'bg-industrialSlate text-white' : 'bg-white text-slate-600 hover:bg-slate-100'"
+              class="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold transition"
+            >
+              Mặt Bích
+            </button>
+          </div>
+
+          <div class="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-soft">
+            <div class="overflow-x-auto">
+              <table class="min-w-full border-collapse text-left">
+                <thead class="bg-slate-100 text-xs uppercase tracking-[0.16em] text-slate-600">
+                  <tr>
+                    <th class="px-5 py-4 font-bold">Tên Sản Phẩm</th>
+                    <th class="px-5 py-4 font-bold">Quy Cách (DN/Inch)</th>
+                    <th class="px-5 py-4 font-bold">Tiêu Chuẩn / Áp Lực</th>
+                    <th class="px-5 py-4 font-bold">Dạng Kết Nối</th>
+                    <th class="px-5 py-4 font-bold">Vật Liệu</th>
+                    <th class="px-5 py-4 font-bold text-right">Thao Tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template x-for="product in filteredProducts()" :key="product.code">
+                    <tr class="border-t border-slate-200 transition hover:bg-slate-100/80">
+                      <td class="px-5 py-4">
+                        <div class="font-semibold text-slate-900" x-text="product.name"></div>
+                        <div class="mt-1 font-mono text-xs text-slate-500" x-text="product.code"></div>
+                      </td>
+                      <td class="px-5 py-4 font-mono font-semibold text-slate-700" x-text="product.dn"></td>
+                      <td class="px-5 py-4 font-mono text-sm text-slate-700" x-text="product.standard"></td>
+                      <td class="px-5 py-4 text-slate-700" x-text="product.connection"></td>
+                      <td class="px-5 py-4">
+                        <span class="inline-flex rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700" x-text="product.material"></span>
+                      </td>
+                      <td class="px-5 py-4 text-right">
+                        <button
+                          type="button"
+                          @click="openModal = true"
+                          class="inline-flex items-center justify-center rounded-full bg-industrialSlate px-3.5 py-2 text-xs font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-800 active:scale-95"
+                        >
+                          Báo giá
+                        </button>
+                      </td>
+                    </tr>
+                  </template>
+
+                  <tr x-show="filteredProducts().length === 0">
+                    <td colspan="6" class="px-5 py-16 text-center">
+                      <div class="mx-auto max-w-md rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8">
+                        <div class="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-full bg-amber-100 text-amber-700"><i data-lucide="search-x" class="h-5 w-5"></i></div>
+                        <h3 class="text-lg font-bold text-slate-900">Không tìm thấy quy cách bạn cần</h3>
+                        <p class="mt-2 text-sm text-slate-600">Hãy gửi yêu cầu cho chuyên gia TNT nếu tìm kiếm theo Class 600, SCH80S, DN200 hoặc bản vẽ riêng.</p>
+                        <button
+                          type="button"
+                          @click="openModal = true"
+                          class="mt-5 inline-flex items-center justify-center rounded-full bg-amber-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 active:scale-95"
+                        >
+                          Tư Vấn Quy Cách Đặc Chủng
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-slate-900 py-20 text-white">
+        <div class="mx-auto max-w-7xl px-4 lg:px-8">
+          <div class="mb-10 text-center">
+            <div class="text-xs font-bold uppercase tracking-[0.2em] text-amber-400">Cam kết chất lượng</div>
+            <h2 class="mt-3 text-3xl font-black tracking-[-0.04em] text-white sm:text-4xl">
+              Đội ngũ kỹ thuật chính xác từ đơn hàng đến thi công
+            </h2>
+          </div>
+
+          <div class="grid gap-6 md:grid-cols-3">
+            <article class="rounded-[26px] border border-white/10 bg-white/5 p-6 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-slate-950/20">
+              <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400"><i data-lucide="shield-check" class="h-5 w-5"></i></div>
+              <h3 class="mt-5 text-xl font-bold text-white">CO/CQ &amp; Mill Test Certificate</h3>
+              <p class="mt-3 text-sm leading-7 text-slate-300">
+                Mỗi lô hàng được kiểm tra chất lượng, giấy chứng nhận vật liệu, hồ sơ kiểm tra và theo dõi xuất xưởng rõ ràng 100%.
+              </p>
+            </article>
+
+            <article class="rounded-[26px] border border-white/10 bg-white/5 p-6 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-slate-950/20">
+              <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-400"><i data-lucide="truck" class="h-5 w-5"></i></div>
+              <h3 class="mt-5 text-xl font-bold text-white">Kho bãi Đà Nẵng - Giao nhanh 24h</h3>
+              <p class="mt-3 text-sm leading-7 text-slate-300">
+                Cung cấp cho công trình tại Đà Nẵng, Quảng Nam, Quảng Ngãi và các khu công nghiệp miền Trung với hàng sẵn kho, đóng gói chuyên nghiệp.
+              </p>
+            </article>
+
+            <article class="rounded-[26px] border border-white/10 bg-white/5 p-6 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-slate-950/20">
+              <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-400"><i data-lucide="wrench" class="h-5 w-5"></i></div>
+              <h3 class="mt-5 text-xl font-bold text-white">Gia công ren, bích theo bản vẽ</h3>
+              <p class="mt-3 text-sm leading-7 text-slate-300">
+                Thiết kế theo tiêu chuẩn M&E, PCCC và kịch bản thi công thực tế; hỗ trợ đặt hàng theo yêu cầu kỹ thuật riêng của chủ đầu tư.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-7xl px-4 py-20 lg:px-8">
+        <div class="rounded-[32px] border border-amber-200 bg-gradient-to-r from-amber-50 via-amber-100 to-yellow-50 p-6 shadow-soft md:p-8 lg:p-10">
+          <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div class="max-w-2xl">
+              <div class="text-xs font-bold uppercase tracking-[0.2em] text-amber-700">Hỗ trợ chuyên nghiệp</div>
+              <h3 class="mt-3 text-3xl font-black tracking-[-0.04em] text-slate-900">
+                Không tìm thấy quy cách đặc chủng (Class 600, SCH80S)?
+              </h3>
+              <p class="mt-3 text-base leading-7 text-slate-700">
+                Gửi bản vẽ, DN, áp lực hoặc yêu cầu để đội ngũ TNT tư vấn nhanh theo thực tế thi công, đường ống hơi nóng, khí nén và PCCC.
+              </p>
+            </div>
+            <div class="flex flex-col gap-3 sm:flex-row">
+              <a
+                href="https://zalo.me/" target="_blank" rel="noreferrer"
+                class="inline-flex items-center justify-center gap-2 rounded-full bg-industrialSlate px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-800 active:scale-95"
+              >
+                <i data-lucide="message-circle" class="h-4 w-4"></i>
+                Tư Vấn Zalo
+              </a>
+              <button
+                type="button"
+                @click="openModal = true"
+                class="inline-flex items-center justify-center gap-2 rounded-full bg-amber-500 px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-amber-600 active:scale-95"
+              >
+                <i data-lucide="clipboard-list" class="h-4 w-4"></i>
+                Yêu Cầu Báo Giá
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact" class="bg-industrialSlate text-slate-300">
+      <div class="mx-auto max-w-7xl px-4 py-14 lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr_0.8fr]">
+          <div>
+            <div class="flex items-center gap-3">
+              <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-fireRed to-orange-500 font-black text-white">TNT</div>
+              <div>
+                <div class="text-lg font-black uppercase tracking-[0.18em] text-white">TNT</div>
+                <div class="text-[10px] uppercase tracking-[0.24em] text-slate-400">Industrial Steel &amp; PCCC</div>
+              </div>
+            </div>
+            <p class="mt-5 max-w-md text-sm leading-7 text-slate-300">
+              Cung cấp phụ kiện inox, van, mặt bích và giải pháp đường ống cho hệ thống hơi nóng, khí nén, nước và PCCC tại Đà Nẵng, miền Trung Việt Nam.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-bold uppercase tracking-[0.2em] text-white">Liên hệ</h3>
+            <ul class="mt-5 space-y-3 text-sm text-slate-300">
+              <li>Kho hàng: KCN Hòa Khánh, Q. Liên Chiểu, TP. Đà Nẵng</li>
+              <li>Hotline: 0905.XXX.XXX</li>
+              <li>Email: sales@tntindustrial.vn</li>
+              <li>Giờ làm việc: 08:00 - 18:00 (Mon - Sat)</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-bold uppercase tracking-[0.2em] text-white">Tiêu chuẩn</h3>
+            <ul class="mt-5 space-y-3 text-sm text-slate-300">
+              <li>CO/CQ &amp; Mill Test Certificate</li>
+              <li>SUS304 / SUS316 / ASME / DIN / JIS</li>
+              <li>Hỗ trợ theo bản vẽ kỹ thuật</li>
+              <li>Đảm bảo chất lượng công trình</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-10 border-t border-white/10 pt-6 text-sm text-slate-400">
+          © 2026 CÔNG TY CỔ PHẦN VẬT TƯ CÔNG NGHIỆP TNT. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+    <div
+      x-show="openModal"
+      x-cloak
+      x-transition:enter="transition ease-out duration-200"
+      x-transition:enter-start="opacity-0"
+      x-transition:enter-end="opacity-100"
+      x-transition:leave="transition ease-in duration-150"
+      x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0"
+      class="fixed inset-0 z-[99] flex items-center justify-center p-4"
+      style="display: none;"
+    >
+      <div class="absolute inset-0 bg-slate-950/75 backdrop-blur-sm"></div>
+      <div
+        x-show="openModal"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-95"
+        class="relative w-full max-w-lg rounded-[28px] border border-slate-200 bg-white p-6 shadow-2xl"
+      >
+        <div class="mb-5 flex items-start justify-between gap-4">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-[0.2em] text-fireRed">RFQ nhanh</div>
+            <h3 class="mt-2 text-2xl font-black tracking-[-0.04em] text-slate-900">Báo giá công trình</h3>
+          </div>
+          <button type="button" @click="openModal = false" class="rounded-full bg-slate-100 p-2 text-slate-600 transition hover:bg-slate-200">
+            <i data-lucide="x" class="h-4 w-4"></i>
+          </button>
+        </div>
+
+        <form class="space-y-4">
+          <div>
+            <label class="mb-1.5 block text-sm font-semibold text-slate-700">Tên công trình</label>
+            <input type="text" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-800 focus:border-fireRed focus:outline-none focus:ring-2 focus:ring-fireRed/15" placeholder="VD: Nhà máy M&E Hòa Khánh" />
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label class="mb-1.5 block text-sm font-semibold text-slate-700">Hotline</label>
+              <input type="tel" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-800 focus:border-fireRed focus:outline-none focus:ring-2 focus:ring-fireRed/15" placeholder="0905..." />
+            </div>
+            <div>
+              <label class="mb-1.5 block text-sm font-semibold text-slate-700">Quy cách DN</label>
+              <input type="text" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-800 focus:border-fireRed focus:outline-none focus:ring-2 focus:ring-fireRed/15" placeholder="DN50, DN80, SCH40..." />
+            </div>
+          </div>
+          <div>
+            <label class="mb-1.5 block text-sm font-semibold text-slate-700">Yêu cầu CO/CQ</label>
+            <textarea rows="4" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-800 focus:border-fireRed focus:outline-none focus:ring-2 focus:ring-fireRed/15" placeholder="Mô tả yêu cầu: vật liệu SUS316, áp lực Class 150, thử nghiệm, chứng nhận..."></textarea>
+          </div>
+          <button type="submit" class="inline-flex w-full items-center justify-center rounded-full bg-fireRed px-5 py-3 text-sm font-semibold text-white transition hover:bg-red-600 active:scale-95">
+            Gửi yêu cầu báo giá
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
