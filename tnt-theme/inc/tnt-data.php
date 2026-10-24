@@ -13,7 +13,7 @@ if ( ! function_exists( 'tnt_company' ) ) {
 			'founded'    => '01/04/2020',
 			'capital'    => '5.500.000.000 đồng',
 			'director'   => 'Lê Văn Trung',
-			'phones'     => array( '0902.272.462', '0773.539.748' ),
+			'phones'     => array( '039.444.2505', '0902.272.462',  ),
 			'email'      => 'contact@phukientnt.com',
 			'locations'  => array(
 				// array(
