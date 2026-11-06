@@ -279,106 +279,42 @@ a { color: var(--tnt-primary); }
 }
 
 /* ==========================================================
-   NỀN GRADIENT VÀNG ĐỒNG → NÂU ĐẬM  (#b0801b → #30210d)
-   Khối này ghi đè phần trên. Xóa khối này để quay lại giao diện cũ
-   (bản sao lưu: main.css.bak-before-gradient).
+   CÁC KHỐI MÀU XANH LÁ ĐẬM → GRADIENT #b0801b → #30210d
+   (phần còn lại của giao diện giữ nguyên). Xóa khối này để về như cũ.
    ========================================================== */
 :root {
-  --tnt-bg-from: #b0801b;
-  --tnt-bg-to: #30210d;
-  --tnt-cream: #fffbea;
-  --tnt-cream-dim: #fff1c9;
-  --tnt-gold: #ffe08a;
-  --tnt-brown-deep: #1d1408;
-  --tnt-green-soft: #f6ecd0;
-  --bs-body-color: var(--tnt-cream);
-  --bs-link-color-rgb: 255, 211, 107;
+  --tnt-grad: linear-gradient(135deg, #b0801b 0%, #30210d 100%);
+  --tnt-grad-foot: linear-gradient(135deg, #b0801b 0%, #30210d 55%);
+  --tnt-stripes: repeating-linear-gradient(180deg, #b0801b 0 8px, transparent 8px 20px);
 }
 
-html { background: var(--tnt-bg-to); }
-body {
-  /* thêm điểm dừng 28% để vùng đầu trang tối nhanh hơn một chút → chữ dễ đọc */
-  background: linear-gradient(180deg, var(--tnt-bg-from) 0%, #7d5a16 28%, var(--tnt-bg-to) 100%) no-repeat;
-  background-color: var(--tnt-bg-to);
-  color: var(--tnt-cream);
-  min-height: 100vh;
-}
+/* Thanh trên cùng */
+.tnt-topbar { background: var(--tnt-grad); color: #fff4d6; }
 
-/* --- Chữ nằm trực tiếp trên nền gradient: sáng + bóng nhẹ để dễ đọc --- */
-main { text-shadow: 0 1px 3px rgba(48, 33, 13, .6); }
-a { color: var(--tnt-gold); }
-a:hover { color: #fff; }
-.tnt-heading { color: var(--tnt-cream); }
-.tnt-section__head p,
-.tnt-pgroup__head p { color: var(--tnt-cream-dim); }
-.tnt-eyebrow { color: var(--tnt-gold); }
-.tnt-eyebrow--light { color: #fff; }
-.tnt-link { color: var(--tnt-gold); }
-.tnt-link:hover { color: #fff; }
-.tnt-checklist li { color: var(--tnt-cream); }
-.tnt-pgroup__num { -webkit-text-stroke-color: var(--tnt-gold); }
-.tnt-prose, .tnt-prose p, .tnt-prose li { color: var(--tnt-cream); }
-
-/* --- Các khối nền: phủ tối nhẹ thay vì xám/xanh nhạt --- */
-.tnt-section--tint,
-.tnt-section--tint + .tnt-cta,
-.tnt-pgroup.tnt-section--tint + .tnt-cta { background: rgba(20, 12, 3, .26); }
-.tnt-section--dark { background: var(--tnt-brown-deep); color: var(--tnt-cream-dim); }
-
-/* --- Thẻ nền trắng/sáng: giữ chữ tối, không kế thừa chữ sáng --- */
-.tnt-header, .tnt-catnav, .tnt-stats__grid, .tnt-value, .tnt-cat, .tnt-product,
-.tnt-cert, .tnt-standard, .tnt-contact-card, .tnt-form, .tnt-location, .tnt-map,
-.tnt-product__gallery, .card, .alert, .bg-light { color: var(--tnt-ink); text-shadow: none; }
-.tnt-header a:not(.tnt-btn):not(.tnt-link), .tnt-catnav a { text-shadow: none; }
-.tnt-value a, .tnt-cat a, .tnt-product a, .tnt-contact-card a:not(.tnt-btn),
-.tnt-form a, .tnt-location a { color: var(--tnt-primary); }
-.tnt-cert dd { color: var(--tnt-ink); }
-.tnt-value:hover, .tnt-cat:hover { border-color: var(--tnt-accent); }
-
-/* --- Khối trong suốt trước đây (pillar) → thẻ kính tối --- */
-.tnt-pillar { background: rgba(20, 12, 3, .35); border-color: rgba(255, 246, 220, .22); }
-.tnt-pillar h3 { color: var(--tnt-gold); }
-.tnt-pillar p { color: var(--tnt-cream-dim); }
-.tnt-pillar > .tnt-icon { background: var(--tnt-gold); color: var(--tnt-bg-to); }
-
-/* --- Khối COQ: kem + viền vàng đồng --- */
-.tnt-coq { background: #fff6dc; border-color: var(--tnt-bg-from); text-shadow: none; }
-.tnt-coq h2 { color: var(--tnt-bg-to); }
-.tnt-coq p { color: #5b4a2a; }
-
-/* --- Topbar, footer, hero, CTA: chuyển xanh đậm → nâu đậm cho đồng bộ --- */
-.tnt-topbar { background: var(--tnt-brown-deep); color: #e8d9b0; }
-.tnt-footer { background: var(--tnt-brown-deep); color: #cdb98a; text-shadow: none; }
-.tnt-footer a { color: #f3e6c0; }
-.tnt-footer a:hover { color: var(--tnt-gold); }
-.tnt-brand--light .tnt-brand__text small { color: #cdb98a; }
-.tnt-footer__bottom { border-top-color: rgba(255, 246, 220, .12); }
-
+/* Hero (trang chủ + trang con): phủ gradient lên ảnh, bên trái tối để chữ trắng dễ đọc */
 .tnt-hero, .tnt-page-hero {
-  background: linear-gradient(100deg, rgba(29, 20, 8, .97) 0%, rgba(86, 60, 14, .84) 45%, rgba(176, 128, 27, .30) 100%), var(--hero-img) center / cover no-repeat var(--tnt-brown-deep);
+  background: linear-gradient(100deg, rgba(48, 33, 13, .96) 0%, rgba(110, 80, 18, .84) 45%, rgba(176, 128, 27, .38) 100%), var(--hero-img) center / cover no-repeat #30210d;
   background-blend-mode: normal, luminosity;
 }
 @media (max-width: 767.98px) {
   .tnt-hero, .tnt-page-hero {
-    background: linear-gradient(rgba(29, 20, 8, .92), rgba(86, 60, 14, .86)), var(--hero-img) center / cover no-repeat var(--tnt-brown-deep);
+    background: linear-gradient(rgba(48, 33, 13, .92), rgba(130, 94, 20, .86)), var(--hero-img) center / cover no-repeat #30210d;
     background-blend-mode: normal, luminosity;
   }
 }
-.tnt-hero__lead, .tnt-page-hero p { color: #f3e6c0; }
-.tnt-breadcrumb { color: #e0cf9f; }
+.tnt-hero__lead, .tnt-page-hero p { color: #fff4d6; }
+.tnt-breadcrumb { color: #f0dfb0; }
 
-.tnt-cta__box { background: linear-gradient(110deg, var(--tnt-brown-deep), #4a3512 58%, #8a6416); text-shadow: none; }
-.tnt-cta__box p { color: #f3e6c0; }
+/* Mục nền tối, khung kêu gọi, bảng loại mặt bích, ảnh chứng chỉ */
+.tnt-section--dark { background: var(--tnt-grad); color: #fff4d6; }
+.tnt-section--dark .tnt-section__head p { color: #f0dfb0; }
+.tnt-cta__box { background: linear-gradient(110deg, #b0801b 0%, #30210d 100%); }
+.tnt-cta__box p { color: #fff4d6; }
+.tnt-types { background: var(--tnt-grad); color: #fff4d6; }
+.tnt-cert__img { background-color: #b0801b; background-image: var(--tnt-stripes-light); }
 
-.tnt-types { background: var(--tnt-brown-deep); color: var(--tnt-cream-dim); text-shadow: none; }
-.tnt-types strong { color: var(--tnt-gold); }
-
-/* --- Nút xanh → nâu đậm viền vàng cho hợp tông --- */
-.tnt-btn--primary { background: var(--tnt-brown-deep); color: var(--tnt-gold); }
-.tnt-btn--primary:hover { background: #000; color: #fff; }
-.tnt-btn--ghost:hover { color: var(--tnt-bg-to); }
-.btn-outline-primary { --bs-btn-color: var(--tnt-primary); }
-
-/* --- Form liên hệ --- */
-.tnt-form .form-label { color: var(--tnt-ink); }
-.alert { text-shadow: none; }
+/* Chân trang */
+.tnt-footer { background: var(--tnt-grad-foot); background-color: #30210d; color: #f0dfb0; }
+.tnt-footer a { color: #fff4d6; }
+.tnt-brand--light .tnt-brand__text small { color: #f0dfb0; }
+.tnt-brand--light .tnt-brand__text strong { text-shadow: 0 1px 2px rgba(48, 33, 13, .5); }
