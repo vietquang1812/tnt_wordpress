@@ -11,7 +11,7 @@ if ( ! function_exists( 'tnt_company' ) ) {
 			'short'      => 'Vật tư Xây dựng TNT',
 			'tax_code'   => '0402034993',
 			'founded'    => '01/04/2020',
-			'capital'    => '5.500.000.000 đồng',
+			'capital'    => '50.000.000.000 đồng',
 			'director'   => 'Lê Văn Trung',
 			'phones'     => array( '039.444.2505', '0902.272.462',  ),
 			'email'      => 'contact@phukientnt.com',

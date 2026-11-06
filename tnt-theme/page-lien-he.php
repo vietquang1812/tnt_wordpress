@@ -103,7 +103,7 @@ $map_url = function ( $address ) {
 
                 <div class="col-lg-7">
                     <span class="tnt-eyebrow">Địa chỉ</span>
-                    <h2 class="tnt-heading">Trụ sở & kho hàng</h2>
+                    <h2 class="tnt-heading">Kho hàng & showroom</h2>
                     <div class="tnt-locations" role="tablist">
                         <?php foreach ( $tnt['locations'] as $i => $loc ) : ?>
                             <button type="button" class="tnt-location<?php echo 0 === $i ? ' is-active' : ''; ?>" data-map="<?php echo esc_url( $map_url( $loc['address'] ) ); ?>" role="tab" aria-selected="<?php echo 0 === $i ? 'true' : 'false'; ?>">
