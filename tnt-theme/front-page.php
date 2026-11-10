@@ -9,12 +9,22 @@ $groups = tnt_product_groups();
 
 <main id="main">
 
-    <!-- HERO -->
-    <section class="tnt-hero" style="--hero-img:url('<?php echo esc_url( tnt_img( 'hero-city.jpg' ) ); ?>')">
+    <!-- BANNER (màn hình ≥ 768px) -->
+    <section class="tnt-banner d-none d-md-block">
+        <p class="visually-hidden">Vật tư thép chất lượng cho mọi công trình — Thép &amp; vật tư công nghiệp: thép xây dựng, thép hình, thép tấm, thép ống, thép hộp, phụ kiện PCCC, phụ kiện ngành hơi nước.</p>
+        <img class="tnt-banner__img" src="<?php echo esc_url( tnt_img( 'hero-banner.jpg' ) ); ?>" width="1920" height="700" alt="TNT — Thép &amp; vật tư công nghiệp. Vật tư thép chất lượng cho mọi công trình" fetchpriority="high">
+        <div class="container tnt-banner__cta">
+            <a class="btn tnt-btn tnt-btn--accent btn-lg" href="<?php echo esc_url( tnt_page_url( 'san-pham' ) ); ?>">Xem sản phẩm <?php echo tnt_icon( 'arrow' ); ?></a>
+            <a class="btn tnt-btn tnt-btn--primary btn-lg" href="<?php echo esc_url( tnt_page_url( 'lien-he' ) . '#bao-gia' ); ?>">Nhận báo giá</a>
+        </div>
+    </section>
+
+    <!-- HERO (điện thoại < 768px) -->
+    <section class="tnt-hero d-md-none" style="--hero-img:url('<?php echo esc_url( tnt_img( 'hero-city.jpg' ) ); ?>')">
         <div class="container position-relative">
             <div class="row">
                 <div class="col-lg-8 col-xl-7">
-                    <span class="tnt-eyebrow tnt-eyebrow--light">Thép & vật tư công nghiệp tại Đà Nẵng</span>
+                    <span class="tnt-eyebrow tnt-eyebrow--light">Thép & vật tư công nghiệp</span>
                     <h1 class="tnt-hero__title">Vật tư thép chất lượng cho <span>mọi công trình</span></h1>
                     <p class="tnt-hero__lead">TNT cung cấp sắt xây dựng, thép ống, thép hộp, thép hình U – I – V – H, thép tấm, co tê, mặt bích và van công nghiệp — đạt chuẩn kỹ thuật, giao hàng đúng tiến độ.</p>
                     <div class="d-flex flex-wrap gap-3">
@@ -57,7 +67,6 @@ $groups = tnt_product_groups();
                         <li><?php echo tnt_icon( 'check' ); ?> Sản phẩm đạt tiêu chuẩn kỹ thuật</li>
                         <li><?php echo tnt_icon( 'check' ); ?> Giao hàng đúng hẹn, đúng tiến độ</li>
                         <li><?php echo tnt_icon( 'check' ); ?> Tư vấn tận tâm, báo giá nhanh</li>
-                        <li><?php echo tnt_icon( 'check' ); ?> Kho hàng sẵn tại Đà Nẵng</li>
                     </ul>
                 </div>
             </div>

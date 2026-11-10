@@ -1,0 +1,135 @@
+<?php
+/**
+ * Trang Dự Án (slug: du-an) — hiển thị các dự án tạo trong admin: Dự án.
+ */
+get_header();
+$projects = tnt_get_projects();
+
+get_template_part( 'template-parts/page-hero', null, array(
+    'title' => 'Dự Án',
+    'lead'  => 'Các dự án TNT đã cung cấp vật tư thép.',
+    'image' => 'hero-city.jpg',
+) );
+?>
+
+<main id="main">
+    <section class="tnt-section">
+        <div class="container">
+            <?php if ( ! $projects ) : ?>
+                <p class="text-center text-muted py-5 mb-0">Danh sách dự án đang được cập nhật.</p>
+            <?php else : ?>
+                <div class="tnt-pj__grid">
+                    <?php foreach ( $projects as $i => $p ) :
+                        $cover = $p['images'] ? $p['images'][0] : null;
+                        $n     = count( $p['images'] );
+                        ?>
+                        <button type="button" class="tnt-pj__card" data-pj-open="<?php echo (int) $i; ?>">
+                            <span class="tnt-pj__thumb">
+                                <?php if ( $cover ) : ?>
+                                    <img src="<?php echo esc_url( $cover['thumb'] ); ?>" alt="<?php echo esc_attr( $cover['alt'] ); ?>" loading="lazy">
+                                <?php else : ?>
+                                    <img class="is-empty" src="<?php echo esc_url( tnt_img( 'logo-tnt.png' ) ); ?>" alt="" loading="lazy">
+                                <?php endif; ?>
+                                <?php if ( $n > 1 ) : ?><span class="tnt-pj__count"><?php echo (int) $n; ?> ảnh</span><?php endif; ?>
+                            </span>
+                            <span class="tnt-pj__cap">
+                                <strong><?php echo esc_html( $p['title'] ); ?></strong>
+                                <em><?php echo $p['detail'] ? 'Xem chi tiết' : 'Xem ảnh'; ?> &rarr;</em>
+                            </span>
+                        </button>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    </section>
+
+    <?php get_template_part( 'template-parts/cta' ); ?>
+</main>
+
+<?php if ( $projects ) : ?>
+<div class="tnt-pj" id="tnt-pj" hidden role="dialog" aria-modal="true" aria-label="Chi tiết dự án">
+    <div class="tnt-pj__backdrop" data-pj-close></div>
+    <div class="tnt-pj__box">
+        <button type="button" class="tnt-lb__btn tnt-lb__close" data-pj-close aria-label="Đóng">&times;</button>
+        <div class="tnt-pj__media">
+            <div class="tnt-pj__stage">
+                <button type="button" class="tnt-lb__btn tnt-lb__prev" data-pj-prev aria-label="Ảnh trước">&#8249;</button>
+                <img class="tnt-pj__img" src="" alt="">
+                <button type="button" class="tnt-lb__btn tnt-lb__next" data-pj-next aria-label="Ảnh sau">&#8250;</button>
+            </div>
+            <div class="tnt-pj__thumbs"></div>
+        </div>
+        <div class="tnt-pj__info">
+            <h2 class="tnt-pj__title"></h2>
+            <div class="tnt-pj__detail tnt-prose"></div>
+        </div>
+    </div>
+</div>
+<script type="application/json" id="tnt-pj-data"><?php echo wp_json_encode( $projects, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE ); ?></script>
+<script>
+(function () {
+    var box = document.getElementById('tnt-pj');
+    if (!box) { return; }
+    var data = JSON.parse(document.getElementById('tnt-pj-data').textContent);
+    var img = box.querySelector('.tnt-pj__img');
+    var thumbs = box.querySelector('.tnt-pj__thumbs');
+    var title = box.querySelector('.tnt-pj__title');
+    var detail = box.querySelector('.tnt-pj__detail');
+    var cur = null, idx = 0, opener = null;
+
+    function show(i) {
+        var imgs = cur.images;
+        box.classList.toggle('has-img', imgs.length > 0);
+        box.classList.toggle('is-single', imgs.length < 2);
+        if (!imgs.length) { img.removeAttribute('src'); return; }
+        idx = (i + imgs.length) % imgs.length;
+        img.src = imgs[idx].full;
+        img.alt = imgs[idx].alt;
+        Array.prototype.forEach.call(thumbs.children, function (b, k) { b.classList.toggle('is-on', k === idx); });
+    }
+    function open(n, trigger) {
+        cur = data[n]; opener = trigger;
+        title.textContent = cur.title;
+        detail.innerHTML = cur.detail || '';
+        box.classList.toggle('has-detail', !!cur.detail);
+        thumbs.innerHTML = '';
+        cur.images.forEach(function (im, k) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.setAttribute('aria-label', 'Ảnh ' + (k + 1));
+            var t = document.createElement('img');
+            t.src = im.thumb; t.alt = '';
+            b.appendChild(t);
+            b.addEventListener('click', function () { show(k); });
+            thumbs.appendChild(b);
+        });
+        show(0);
+        box.hidden = false;
+        document.documentElement.classList.add('tnt-lb-open');
+        box.querySelector('.tnt-lb__close').focus();
+    }
+    function close() {
+        box.hidden = true;
+        img.removeAttribute('src');
+        document.documentElement.classList.remove('tnt-lb-open');
+        if (opener) { opener.focus(); }
+    }
+    document.addEventListener('click', function (e) {
+        var c = e.target.closest('[data-pj-open]');
+        if (c) { open(parseInt(c.getAttribute('data-pj-open'), 10), c); return; }
+        if (box.hidden) { return; }
+        if (e.target.closest('[data-pj-close]')) { close(); }
+        else if (e.target.closest('[data-pj-prev]')) { show(idx - 1); }
+        else if (e.target.closest('[data-pj-next]')) { show(idx + 1); }
+    });
+    document.addEventListener('keydown', function (e) {
+        if (box.hidden) { return; }
+        if (e.key === 'Escape') { close(); }
+        else if (e.key === 'ArrowLeft') { show(idx - 1); }
+        else if (e.key === 'ArrowRight') { show(idx + 1); }
+    });
+})();
+</script>
+<?php endif; ?>
+
+<?php get_footer(); ?>

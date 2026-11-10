@@ -12,9 +12,11 @@ function tnt_img( $file ) {
 function tnt_main_pages() {
 	return array(
 		''                     => 'Trang chủ',
-		'san-pham'             => 'Sản phẩm',
-		'chung-chi-chat-luong' => 'Chứng chỉ chất lượng',
-		'lien-he'              => 'Thông tin liên hệ',
+		'gioi-thieu'          => 'Giới thiệu',
+		'nha-may'             => 'Nhà máy',
+		'du-an'                => 'Dự Án',
+		'hoat-dong'            => 'Hoạt Động',
+		'lien-he'              => 'Liên Hệ',
 	);
 }
 

@@ -1,0 +1,226 @@
+<?php
+/**
+ * Trang Nhà máy (slug giữ nguyên: san-pham)
+ * 4 danh mục → các nhà máy → ảnh giấy chứng nhận (hoặc ảnh sản phẩm nếu chưa có giấy).
+ * Sửa danh sách ngay bên dưới. Mỗi ảnh: 'img' = file đầy đủ trong assets/images, 'thumb' = ảnh nhỏ (có thể trùng),
+ * 'kind' = 'cert' (giấy chứng nhận) hoặc 'product' (hình sản phẩm), 'sub' = dòng chú thích.
+ */
+get_header();
+
+$nm_groups = array(
+    array(
+        'id'    => 'sat-xay-dung',
+        'title' => 'Thép Xây Dựng',
+        'intro' => 'Các nhà máy thép xây dựng TNT cung ứng.',
+        'factories' => array(
+            array( 'name' => 'Hòa Phát', 'images' => array(
+                array( 'img' => 'cert-hoa-phat-ong.jpg', 'thumb' => 'cert-hoa-phat-ong-thumb.jpg', 'kind' => 'cert', 'sub' => 'Giấy chứng nhận đại lý chính thức ống thép Hòa Phát · 02/01/2023' ),
+            ) ),
+            array( 'name' => 'VAS', 'images' => array(
+                array( 'img' => 'cert-vas.jpg', 'thumb' => 'cert-vas-thumb.jpg', 'kind' => 'cert', 'sub' => 'Giấy chứng nhận nhà phân phối thép VAS · 01/01/2025' ),
+            ) ),
+            array( 'name' => 'Việt Đức', 'images' => array(
+                array( 'img' => 'cert-viet-duc-vgs.jpg', 'thumb' => 'cert-viet-duc-vgs-thumb.jpg', 'kind' => 'cert', 'sub' => 'Giấy chứng nhận đại lý phân phối thép Việt Đức VGS' ),
+            ) ),
+            array( 'name' => 'VINASTEEL', 'images' => array(
+                array( 'img' => 'cert-vinasteel.jpg', 'thumb' => 'cert-vinasteel-thumb.jpg', 'kind' => 'cert', 'sub' => 'Giấy chứng nhận đơn vị phân phối chính thức Thép Việt Nam – Vinasteel' ),
+            ) ),
+        ),
+    ),
+    array(
+        'id'    => 'thep-ong-hop',
+        'title' => 'Thép Ống, Thép Hộp',
+        'intro' => 'Các nhà máy thép ống, thép hộp TNT cung ứng.',
+        'factories' => array(
+            array( 'name' => 'Hòa Phát', 'images' => array(
+                array( 'img' => 'cert-hoa-phat-ong.jpg', 'thumb' => 'cert-hoa-phat-ong-thumb.jpg', 'kind' => 'cert', 'sub' => 'Giấy chứng nhận đại lý chính thức ống thép Hòa Phát · 02/01/2023' ),
+            ) ),
+            array( 'name' => 'Việt Đức', 'images' => array(
+                array( 'img' => 'cert-viet-duc-vgs.jpg', 'thumb' => 'cert-viet-duc-vgs-thumb.jpg', 'kind' => 'cert', 'sub' => 'Giấy chứng nhận đại lý phân phối thép Việt Đức VGS' ),
+            ) ),
+            array( 'name' => 'Ống Thép 190', 'images' => array(
+                array( 'img' => 'cert-ong-thep-190-tnhh.jpg', 'thumb' => 'cert-ong-thep-190-tnhh-thumb.jpg', 'kind' => 'cert', 'sub' => 'Giấy chứng nhận đại lý kinh doanh Ống Thép 190 · 01/11/2023' ),
+                array( 'img' => 'cert-ong-thep-190-cp.jpg', 'thumb' => 'cert-ong-thep-190-cp-thumb.jpg', 'kind' => 'cert', 'sub' => 'Giấy chứng nhận nhà phân phối chính thức của Công ty Cổ phần 190' ),
+            ) ),
+        ),
+    ),
+    array(
+        'id'    => 'thep-hinh',
+        'title' => 'Thép Hình',
+        'intro' => 'Các nhà máy thép hình TNT cung ứng.',
+        'factories' => array(
+            array( 'name' => 'POSCO', 'images' => array(
+                array( 'img' => 'thep-h-1.jpg', 'thumb' => 'thep-h-1.jpg', 'kind' => 'product', 'sub' => 'Hình ảnh sản phẩm' ),
+            ) ),
+            array( 'name' => 'An Khánh', 'images' => array(
+                array( 'img' => 'thep-i-1.jpg', 'thumb' => 'thep-i-1.jpg', 'kind' => 'product', 'sub' => 'Hình ảnh sản phẩm' ),
+            ) ),
+            array( 'name' => 'Đại Việt', 'images' => array(
+                array( 'img' => 'thep-v-1.jpg', 'thumb' => 'thep-v-1.jpg', 'kind' => 'product', 'sub' => 'Hình ảnh sản phẩm' ),
+            ) ),
+            array( 'name' => 'Hòa Phát', 'images' => array(
+                array( 'img' => 'cert-hoa-phat-ong.jpg', 'thumb' => 'cert-hoa-phat-ong-thumb.jpg', 'kind' => 'cert', 'sub' => 'Giấy chứng nhận đại lý chính thức ống thép Hòa Phát · 02/01/2023' ),
+            ) ),
+        ),
+    ),
+    array(
+        'id'    => 'hang-nhap-khau',
+        'title' => 'Hàng Nhập Khẩu',
+        'intro' => 'Mặt bích, ống mạ và phụ kiện nhập khẩu.',
+        'factories' => array(
+            array( 'name' => 'Mặt bích', 'images' => array(
+                array( 'img' => 'mat-bich.jpg', 'thumb' => 'mat-bich.jpg', 'kind' => 'product', 'sub' => 'Hình ảnh sản phẩm' ),
+            ) ),
+            array( 'name' => 'Ống mạ', 'images' => array(
+                array( 'img' => 'thep-ong-1.jpg', 'thumb' => 'thep-ong-1.jpg', 'kind' => 'product', 'sub' => 'Hình ảnh sản phẩm' ),
+            ) ),
+            array( 'name' => 'Co, tê', 'images' => array(
+                array( 'img' => 'pk-co-te-1.jpg', 'thumb' => 'pk-co-te-1.jpg', 'kind' => 'product', 'sub' => 'Hình ảnh sản phẩm' ),
+                array( 'img' => 'pk-co-te-2.jpg', 'thumb' => 'pk-co-te-2.jpg', 'kind' => 'product', 'sub' => 'Hình ảnh sản phẩm' ),
+            ) ),
+        ),
+    ),
+);
+
+get_template_part( 'template-parts/page-hero', null, array(
+    'title' => 'Nhà máy',
+    'lead'  => 'Các nhà máy thép TNT cung ứng, kèm giấy chứng nhận đại lý và nhà phân phối.',
+    'image' => 'hero-city.jpg',
+) );
+?>
+
+<main id="main">
+    <div class="tnt-catnav">
+        <div class="container">
+            <ul>
+                <?php foreach ( $nm_groups as $g ) : ?>
+                    <li><a href="#<?php echo esc_attr( $g['id'] ); ?>"><?php echo esc_html( $g['title'] ); ?></a></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+
+    <?php foreach ( $nm_groups as $i => $g ) : ?>
+        <section class="tnt-section tnt-pgroup tnt-nm<?php echo $i % 2 ? ' tnt-section--tint' : ''; ?>" id="<?php echo esc_attr( $g['id'] ); ?>">
+            <div class="container">
+                <div class="tnt-pgroup__head">
+                    <span class="tnt-pgroup__num"><?php echo esc_html( str_pad( $i + 1, 2, '0', STR_PAD_LEFT ) ); ?></span>
+                    <div>
+                        <h2 class="tnt-heading mb-2"><?php echo esc_html( $g['title'] ); ?></h2>
+                        <p class="mb-0"><?php echo esc_html( $g['intro'] ); ?></p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-3">
+                        <ul class="tnt-nm__list" aria-label="Danh sách <?php echo esc_attr( $g['title'] ); ?>">
+                            <?php foreach ( $g['factories'] as $fi => $f ) :
+                                $has_cert = false;
+                                foreach ( $f['images'] as $im ) {
+                                    if ( 'cert' === $im['kind'] ) { $has_cert = true; }
+                                }
+                                ?>
+                                <li>
+                                    <button type="button" class="tnt-nm__name" data-nm-name data-group="<?php echo esc_attr( $g['id'] ); ?>" data-factory="<?php echo esc_attr( $g['id'] . '-' . $fi ); ?>">
+                                        <span><?php echo esc_html( $f['name'] ); ?></span>
+                                        <small><?php echo $has_cert ? 'Giấy chứng nhận' : 'Hình sản phẩm'; ?></small>
+                                    </button>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="tnt-nm__grid">
+                            <?php foreach ( $g['factories'] as $fi => $f ) :
+                                foreach ( $f['images'] as $im ) : ?>
+                                    <button type="button" class="tnt-nm__card is-<?php echo esc_attr( $im['kind'] ); ?>" data-nm-open
+                                        data-group="<?php echo esc_attr( $g['id'] ); ?>"
+                                        data-factory="<?php echo esc_attr( $g['id'] . '-' . $fi ); ?>"
+                                        data-full="<?php echo esc_url( tnt_img( $im['img'] ) ); ?>"
+                                        data-title="<?php echo esc_attr( $f['name'] ); ?>"
+                                        data-sub="<?php echo esc_attr( $im['sub'] ); ?>">
+                                        <span class="tnt-nm__thumb"><img src="<?php echo esc_url( tnt_img( $im['thumb'] ) ); ?>" alt="<?php echo esc_attr( $f['name'] . ' — ' . $im['sub'] ); ?>" loading="lazy"></span>
+                                        <span class="tnt-nm__cap"><strong><?php echo esc_html( $f['name'] ); ?></strong><em><?php echo esc_html( $im['sub'] ); ?></em></span>
+                                    </button>
+                                <?php endforeach;
+                            endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <?php endforeach; ?>
+
+    <?php get_template_part( 'template-parts/cta' ); ?>
+</main>
+
+<!-- Cửa sổ xem ảnh -->
+<div class="tnt-lb" id="tnt-lb" hidden role="dialog" aria-modal="true" aria-label="Xem ảnh chi tiết">
+    <div class="tnt-lb__backdrop" data-lb-close></div>
+    <figure class="tnt-lb__box">
+        <button type="button" class="tnt-lb__btn tnt-lb__close" data-lb-close aria-label="Đóng">&times;</button>
+        <button type="button" class="tnt-lb__btn tnt-lb__prev" data-lb-prev aria-label="Ảnh trước">&#8249;</button>
+        <button type="button" class="tnt-lb__btn tnt-lb__next" data-lb-next aria-label="Ảnh sau">&#8250;</button>
+        <img class="tnt-lb__img" src="" alt="">
+        <figcaption class="tnt-lb__cap"><strong></strong><span></span><em></em></figcaption>
+    </figure>
+</div>
+
+<script>
+(function () {
+    var lb = document.getElementById('tnt-lb');
+    if (!lb) { return; }
+    var img = lb.querySelector('.tnt-lb__img');
+    var cap = lb.querySelector('.tnt-lb__cap');
+    var list = [], idx = 0, opener = null;
+
+    function show(i) {
+        idx = (i + list.length) % list.length;
+        var c = list[idx];
+        img.src = c.getAttribute('data-full');
+        img.alt = c.getAttribute('data-title') + ' — ' + c.getAttribute('data-sub');
+        cap.querySelector('strong').textContent = c.getAttribute('data-title');
+        cap.querySelector('span').textContent = c.getAttribute('data-sub');
+        cap.querySelector('em').textContent = list.length > 1 ? (idx + 1) + ' / ' + list.length : '';
+        lb.classList.toggle('is-single', list.length < 2);
+    }
+    function open(card) {
+        var g = card.getAttribute('data-group');
+        list = Array.prototype.slice.call(document.querySelectorAll('[data-nm-open][data-group="' + g + '"]'));
+        opener = card;
+        show(list.indexOf(card));
+        lb.hidden = false;
+        document.documentElement.classList.add('tnt-lb-open');
+        lb.querySelector('.tnt-lb__close').focus();
+    }
+    function close() {
+        lb.hidden = true;
+        img.src = '';
+        document.documentElement.classList.remove('tnt-lb-open');
+        if (opener) { opener.focus(); }
+    }
+
+    document.addEventListener('click', function (e) {
+        var card = e.target.closest('[data-nm-open]');
+        if (card) { open(card); return; }
+        var name = e.target.closest('[data-nm-name]');
+        if (name) {
+            var first = document.querySelector('[data-nm-open][data-factory="' + name.getAttribute('data-factory') + '"]');
+            if (first) { open(first); }
+            return;
+        }
+        if (lb.hidden) { return; }
+        if (e.target.closest('[data-lb-close]')) { close(); }
+        else if (e.target.closest('[data-lb-prev]')) { show(idx - 1); }
+        else if (e.target.closest('[data-lb-next]')) { show(idx + 1); }
+    });
+    document.addEventListener('keydown', function (e) {
+        if (lb.hidden) { return; }
+        if (e.key === 'Escape') { close(); }
+        else if (e.key === 'ArrowLeft') { show(idx - 1); }
+        else if (e.key === 'ArrowRight') { show(idx + 1); }
+    });
+})();
+</script>
+
+<?php get_footer(); ?>

@@ -27,7 +27,7 @@ $certs = array(
         'rows'  => array(
             'Tên địa điểm'       => 'Kho hàng thép – Công ty CP Vật tư Xây dựng TNT',
             'Mã số địa điểm'     => '00001',
-            'Đăng ký lần đầu'    => '06/06/2022',
+            // 'Đăng ký lần đầu'    => '06/06/2022',
             'Địa chỉ'            => $tnt['locations'][1]['address'],
         ),
     ),

@@ -20,3 +20,5 @@ require_once TNT_THEME_DIR . '/inc/tnt-data.php';
 require_once TNT_THEME_DIR . '/inc/helpers.php';
 require_once TNT_THEME_DIR . '/inc/setup-content.php';
 require_once TNT_THEME_DIR . '/inc/contact-form.php';
+require_once TNT_THEME_DIR . '/inc/projects.php';
+require_once TNT_THEME_DIR . '/inc/activities.php';

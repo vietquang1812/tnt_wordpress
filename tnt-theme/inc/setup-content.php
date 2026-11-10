@@ -8,8 +8,10 @@ function tnt_setup_default_content() {
 
 	foreach ( array(
 		'trang-chu'            => 'Trang chủ',
-		'san-pham'             => 'Sản phẩm',
-		'chung-chi-chat-luong' => 'Chứng chỉ chất lượng',
+		'gioi-thieu'           => 'Giới thiệu',
+		'san-pham'             => 'Nhà máy',
+		'du-an'                => 'Dự Án',
+		'hoat-dong'            => 'Hoạt Động',
 		'lien-he'              => 'Thông tin liên hệ',
 	) as $slug => $title ) {
 		$page = get_page_by_path( $slug );
@@ -59,3 +61,231 @@ function tnt_setup_default_content() {
 	flush_rewrite_rules();
 }
 add_action( 'after_switch_theme', 'tnt_setup_default_content' );
+
+/**
+ * Site đã chạy trước khi có trang Giới thiệu: tự tạo trang (nếu chưa có) và thêm vào
+ * "Menu chính" ngay sau Trang chủ. Chỉ chạy một lần (đánh dấu bằng option).
+ */
+function tnt_ensure_about_page() {
+	if ( get_option( 'tnt_about_page_v1' ) || ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+	$page = get_page_by_path( 'gioi-thieu' );
+	$id   = $page ? $page->ID : wp_insert_post( array(
+		'post_title'  => 'Giới thiệu',
+		'post_name'   => 'gioi-thieu',
+		'post_status' => 'publish',
+		'post_type'   => 'page',
+	) );
+	if ( ! $id || is_wp_error( $id ) ) {
+		return;
+	}
+
+	$locations = get_theme_mod( 'nav_menu_locations', array() );
+	$menu_id   = ! empty( $locations['primary_menu'] ) ? (int) $locations['primary_menu'] : 0;
+	if ( $menu_id ) {
+		$items = wp_get_nav_menu_items( $menu_id );
+		$items = $items ? $items : array();
+		$has   = false;
+		foreach ( $items as $it ) {
+			if ( (int) $it->object_id === (int) $id ) {
+				$has = true;
+			}
+		}
+		if ( ! $has ) {
+			$new_id = wp_update_nav_menu_item( $menu_id, 0, array(
+				'menu-item-object-id' => $id,
+				'menu-item-object'    => 'page',
+				'menu-item-type'      => 'post_type',
+				'menu-item-status'    => 'publish',
+			) );
+			if ( ! is_wp_error( $new_id ) ) {
+				// Đưa mục mới lên vị trí thứ 2 (sau Trang chủ), giữ nguyên thứ tự các mục còn lại.
+				$order = array();
+				foreach ( $items as $k => $it ) {
+					$order[] = (int) $it->db_id;
+					if ( 0 === $k ) {
+						$order[] = (int) $new_id;
+					}
+				}
+				if ( ! in_array( (int) $new_id, $order, true ) ) {
+					$order[] = (int) $new_id;
+				}
+				foreach ( $order as $pos => $db_id ) {
+					wp_update_post( array( 'ID' => $db_id, 'menu_order' => $pos + 1 ) );
+				}
+			}
+		}
+	}
+	update_option( 'tnt_about_page_v1', 1 );
+	flush_rewrite_rules();
+}
+add_action( 'admin_init', 'tnt_ensure_about_page' );
+
+/** Đổi tên trang "Sản phẩm" thành "Nhà máy" (giữ nguyên đường dẫn /san-pham/). Chạy một lần. */
+function tnt_rename_products_page() {
+	if ( get_option( 'tnt_rename_nha_may_v1' ) || ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+	$page = get_page_by_path( 'san-pham' );
+	if ( $page && 'Sản phẩm' === $page->post_title ) {
+		wp_update_post( array( 'ID' => $page->ID, 'post_title' => 'Nhà máy' ) );
+	}
+	update_option( 'tnt_rename_nha_may_v1', 1 );
+}
+add_action( 'admin_init', 'tnt_rename_products_page' );
+
+/** Gỡ trang "Chứng chỉ chất lượng" (chạy một lần): bỏ khỏi menu và chuyển trang vào thùng rác. */
+function tnt_remove_cert_page() {
+	if ( get_option( 'tnt_remove_cert_page_v1' ) ) {
+		return;
+	}
+	$page = get_page_by_path( 'chung-chi-chat-luong' );
+	if ( $page ) {
+		$items = get_posts( array(
+			'post_type'   => 'nav_menu_item',
+			'numberposts' => -1,
+			'post_status' => 'any',
+			'meta_key'    => '_menu_item_object_id',
+			'meta_value'  => $page->ID,
+		) );
+		foreach ( $items as $it ) {
+			wp_delete_post( $it->ID, true );
+		}
+		wp_trash_post( $page->ID );
+	}
+	update_option( 'tnt_remove_cert_page_v1', 1 );
+}
+add_action( 'admin_init', 'tnt_remove_cert_page' );
+
+
+/**
+ * Thêm trang "Dự Án" (hiển thị danh sách dự án tạo trong admin) và đưa vào "Menu chính"
+ * ngay trước mục "Liên hệ". Chỉ chạy một lần.
+ */
+function tnt_ensure_projects_page() {
+	if ( get_option( 'tnt_projects_page_v1' ) || ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+	$page = get_page_by_path( 'du-an' );
+	$id   = $page ? $page->ID : wp_insert_post( array(
+		'post_title'  => 'Dự Án',
+		'post_name'   => 'du-an',
+		'post_status' => 'publish',
+		'post_type'   => 'page',
+	) );
+	if ( ! $id || is_wp_error( $id ) ) {
+		return;
+	}
+	$locations = get_theme_mod( 'nav_menu_locations', array() );
+	$menu_id   = ! empty( $locations['primary_menu'] ) ? (int) $locations['primary_menu'] : 0;
+	if ( $menu_id ) {
+		$items = wp_get_nav_menu_items( $menu_id );
+		$items = $items ? $items : array();
+		$has   = false;
+		$contact_id = (int) ( get_page_by_path( 'lien-he' )->ID ?? 0 );
+		foreach ( $items as $it ) {
+			if ( (int) $it->object_id === (int) $id ) {
+				$has = true;
+			}
+		}
+		if ( ! $has ) {
+			$new_id = wp_update_nav_menu_item( $menu_id, 0, array(
+				'menu-item-object-id' => $id,
+				'menu-item-object'    => 'page',
+				'menu-item-type'      => 'post_type',
+				'menu-item-status'    => 'publish',
+			) );
+			if ( ! is_wp_error( $new_id ) ) {
+				$order = array();
+				$done  = false;
+				foreach ( $items as $it ) {
+					if ( ! $done && $contact_id && (int) $it->object_id === $contact_id ) {
+						$order[] = (int) $new_id;
+						$done    = true;
+					}
+					$order[] = (int) $it->db_id;
+				}
+				if ( ! $done ) {
+					$order[] = (int) $new_id;
+				}
+				foreach ( $order as $pos => $db_id ) {
+					wp_update_post( array( 'ID' => $db_id, 'menu_order' => $pos + 1 ) );
+				}
+			}
+		}
+	}
+	update_option( 'tnt_projects_page_v1', 1 );
+	flush_rewrite_rules();
+}
+add_action( 'admin_init', 'tnt_ensure_projects_page' );
+
+
+/**
+ * Thêm trang "Hoạt Động" và đưa vào "Menu chính" ngay sau mục "Dự Án" (nếu không có thì trước "Liên hệ"). Chỉ chạy một lần.
+ */
+function tnt_ensure_activities_page() {
+	if ( get_option( 'tnt_activities_page_v1' ) || ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+	$page = get_page_by_path( 'hoat-dong' );
+	$id   = $page ? $page->ID : wp_insert_post( array(
+		'post_title'  => 'Hoạt Động',
+		'post_name'   => 'hoat-dong',
+		'post_status' => 'publish',
+		'post_type'   => 'page',
+	) );
+	if ( ! $id || is_wp_error( $id ) ) {
+		return;
+	}
+	$locations = get_theme_mod( 'nav_menu_locations', array() );
+	$menu_id   = ! empty( $locations['primary_menu'] ) ? (int) $locations['primary_menu'] : 0;
+	if ( $menu_id ) {
+		$items = wp_get_nav_menu_items( $menu_id );
+		$items = $items ? $items : array();
+		$has   = false;
+		$after = (int) ( get_page_by_path( 'du-an' )->ID ?? 0 );
+		$before = (int) ( get_page_by_path( 'lien-he' )->ID ?? 0 );
+		$has_after = false;
+		foreach ( $items as $it ) {
+			if ( (int) $it->object_id === (int) $id ) {
+				$has = true;
+			}
+			if ( $after && (int) $it->object_id === $after ) {
+				$has_after = true;
+			}
+		}
+		if ( ! $has ) {
+			$new_id = wp_update_nav_menu_item( $menu_id, 0, array(
+				'menu-item-object-id' => $id,
+				'menu-item-object'    => 'page',
+				'menu-item-type'      => 'post_type',
+				'menu-item-status'    => 'publish',
+			) );
+			if ( ! is_wp_error( $new_id ) ) {
+				$order = array();
+				$done  = false;
+				foreach ( $items as $it ) {
+					if ( ! $has_after && ! $done && $before && (int) $it->object_id === $before ) {
+						$order[] = (int) $new_id;
+						$done    = true;
+					}
+					$order[] = (int) $it->db_id;
+					if ( $has_after && ! $done && (int) $it->object_id === $after ) {
+						$order[] = (int) $new_id;
+						$done    = true;
+					}
+				}
+				if ( ! $done ) {
+					$order[] = (int) $new_id;
+				}
+				foreach ( $order as $pos => $db_id ) {
+					wp_update_post( array( 'ID' => $db_id, 'menu_order' => $pos + 1 ) );
+				}
+			}
+		}
+	}
+	update_option( 'tnt_activities_page_v1', 1 );
+	flush_rewrite_rules();
+}
+add_action( 'admin_init', 'tnt_ensure_activities_page' );
