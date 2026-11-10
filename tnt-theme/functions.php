@@ -22,3 +22,4 @@ require_once TNT_THEME_DIR . '/inc/setup-content.php';
 require_once TNT_THEME_DIR . '/inc/contact-form.php';
 require_once TNT_THEME_DIR . '/inc/projects.php';
 require_once TNT_THEME_DIR . '/inc/activities.php';
+require_once TNT_THEME_DIR . '/inc/post-video.php';

@@ -21,7 +21,7 @@ get_template_part( 'template-parts/page-hero', null, array(
             <?php else : ?>
                 <div class="tnt-pjl">
                     <?php foreach ( $projects as $i => $p ) :
-                        $imgs = $p['images'];
+                        $imgs = $p['media'];
                         $n    = count( $imgs );
                         $subs = array_slice( $imgs, 1, 4 );
                         ?>
@@ -35,16 +35,16 @@ get_template_part( 'template-parts/page-hero', null, array(
                             </div>
                             <div class="tnt-pjl__media">
                                 <?php if ( $n ) : ?>
-                                    <button type="button" class="tnt-pjl__main" data-pj-open="<?php echo (int) $i; ?>" data-pj-at="0" aria-label="Xem ảnh: <?php echo esc_attr( $p['title'] ); ?>">
-                                        <img src="<?php echo esc_url( $imgs[0]['thumb'] ); ?>" alt="<?php echo esc_attr( $imgs[0]['alt'] ); ?>" loading="lazy">
+                                    <button type="button" class="tnt-pjl__main<?php echo 'video' === $imgs[0]['type'] ? ' is-video' : ''; ?>" data-pj-open="<?php echo (int) $i; ?>" data-pj-at="0" aria-label="Xem: <?php echo esc_attr( $p['title'] ); ?>">
+                                        <?php echo tnt_media_thumb_html( $imgs[0] ); ?>
                                     </button>
                                     <?php if ( $subs ) : ?>
                                         <div class="tnt-pjl__subs">
                                             <?php foreach ( $subs as $k => $im ) :
                                                 $is_last = ( 3 === $k && $n > 5 );
                                                 ?>
-                                                <button type="button" class="tnt-pjl__sm" data-pj-open="<?php echo (int) $i; ?>" data-pj-at="<?php echo (int) ( $k + 1 ); ?>" aria-label="Xem ảnh <?php echo (int) ( $k + 2 ); ?>">
-                                                    <img src="<?php echo esc_url( $im['thumb'] ); ?>" alt="<?php echo esc_attr( $im['alt'] ); ?>" loading="lazy">
+                                                <button type="button" class="tnt-pjl__sm<?php echo 'video' === $im['type'] ? ' is-video' : ''; ?>" data-pj-open="<?php echo (int) $i; ?>" data-pj-at="<?php echo (int) ( $k + 1 ); ?>" aria-label="Xem ảnh <?php echo (int) ( $k + 2 ); ?>">
+                                                    <?php echo tnt_media_thumb_html( $im ); ?>
                                                     <?php if ( $is_last ) : ?><span class="tnt-pjl__more-img">+<?php echo (int) ( $n - 4 ); ?></span><?php endif; ?>
                                                 </button>
                                             <?php endforeach; ?>
@@ -72,6 +72,7 @@ get_template_part( 'template-parts/page-hero', null, array(
         <div class="tnt-pj__stage">
             <button type="button" class="tnt-lb__btn tnt-lb__prev" data-pj-prev aria-label="Ảnh trước">&#8249;</button>
             <img class="tnt-pj__img" src="" alt="">
+            <div class="tnt-pj__video" hidden></div>
             <button type="button" class="tnt-lb__btn tnt-lb__next" data-pj-next aria-label="Ảnh sau">&#8250;</button>
         </div>
         <figcaption class="tnt-pj__cap"><strong></strong><em></em></figcaption>
@@ -105,13 +106,31 @@ get_template_part( 'template-parts/page-hero', null, array(
     var data = JSON.parse(document.getElementById('tnt-pj-data').textContent);
     var img = box.querySelector('.tnt-pj__img');
     var cap = box.querySelector('.tnt-pj__cap');
+    var vbox = box.querySelector('.tnt-pj__video');
     var cur = null, idx = 0, opener = null;
+    function clearVideo() { vbox.innerHTML = ''; }
 
     function show(i) {
-        var imgs = cur.images;
+        var imgs = cur.media;
         idx = (i + imgs.length) % imgs.length;
-        img.src = imgs[idx].full;
-        img.alt = imgs[idx].alt;
+        var it = imgs[idx];
+        clearVideo();
+        if (it.type === 'video') {
+            img.hidden = true; img.removeAttribute('src'); vbox.hidden = false;
+            var el;
+            if (it.kind === 'file') {
+                el = document.createElement('video');
+                el.src = it.src; el.controls = true; el.autoplay = true; el.playsInline = true;
+            } else {
+                el = document.createElement('iframe');
+                el.src = it.src; el.title = it.alt; el.allowFullscreen = true;
+                el.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen');
+            }
+            vbox.appendChild(el);
+        } else {
+            vbox.hidden = true; img.hidden = false;
+            img.src = it.full; img.alt = it.alt;
+        }
         cap.querySelector('strong').textContent = cur.title;
         cap.querySelector('em').textContent = imgs.length > 1 ? (idx + 1) + ' / ' + imgs.length : '';
         box.classList.toggle('is-single', imgs.length < 2);
@@ -125,6 +144,7 @@ get_template_part( 'template-parts/page-hero', null, array(
     }
     function close() {
         box.hidden = true;
+        clearVideo();
         img.removeAttribute('src');
         document.documentElement.classList.remove('tnt-lb-open');
         if (opener) { opener.focus(); }

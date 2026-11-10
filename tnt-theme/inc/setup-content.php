@@ -9,10 +9,10 @@ function tnt_setup_default_content() {
 	foreach ( array(
 		'trang-chu'            => 'Trang chủ',
 		'gioi-thieu'           => 'Giới thiệu',
-		'san-pham'             => 'Nhà máy',
+		'nha-may'              => 'Nhà máy',
 		'du-an'                => 'Dự Án',
 		'hoat-dong'            => 'Hoạt Động',
-		'lien-he'              => 'Thông tin liên hệ',
+		'lien-he'              => 'Liên Hệ',
 	) as $slug => $title ) {
 		$page = get_page_by_path( $slug );
 		if ( $page ) {

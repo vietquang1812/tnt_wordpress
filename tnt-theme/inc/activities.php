@@ -273,7 +273,7 @@ function tnt_get_activities() {
 			'id'     => $p->ID,
 			'title'  => get_the_title( $p ),
 			'detail' => '' !== $detail ? apply_filters( 'the_content', $detail ) : '',
-			'images' => $imgs,
+			'media'  => tnt_build_media( $p->ID, $imgs, get_the_title( $p ) ),
 		);
 	}
 	return $out;
