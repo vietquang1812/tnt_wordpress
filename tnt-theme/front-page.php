@@ -113,10 +113,18 @@ $groups = tnt_product_groups();
                 <a class="tnt-link" href="<?php echo esc_url( tnt_page_url( 'san-pham' ) ); ?>">Xem tất cả sản phẩm <?php echo tnt_icon( 'arrow' ); ?></a>
             </div>
             <div class="row g-4">
-                <?php foreach ( $groups as $g ) : ?>
+                <?php
+                // Ảnh đại diện riêng cho một số danh mục (id nhóm => file trong assets/images).
+                $cat_cover = array(
+                    'sat-xay-dung' => 'cat-sat-xay-dung.jpg',
+                    'thep-ong-hop' => 'cat-thep-ong-hop.jpg',
+                );
+                foreach ( $groups as $g ) :
+                    $cover = isset( $cat_cover[ $g['id'] ] ) ? $cat_cover[ $g['id'] ] : $g['items'][0]['images'][0];
+                    ?>
                     <div class="col-6 col-lg-3">
                         <a class="tnt-cat" href="<?php echo esc_url( tnt_page_url( 'san-pham' ) . '#' . $g['id'] ); ?>">
-                            <div class="tnt-cat__img"><img src="<?php echo esc_url( tnt_img( $g['items'][0]['images'][0] ) ); ?>" alt="<?php echo esc_attr( $g['title'] ); ?>" loading="lazy"></div>
+                            <div class="tnt-cat__img"><img src="<?php echo esc_url( tnt_img( $cover ) ); ?>" alt="<?php echo esc_attr( $g['title'] ); ?>" loading="lazy"></div>
                             <div class="tnt-cat__body">
                                 <h3><?php echo esc_html( $g['title'] ); ?></h3>
                                 <span><?php echo tnt_icon( 'arrow' ); ?></span>

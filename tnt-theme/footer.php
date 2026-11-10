@@ -7,7 +7,7 @@
                     <span class="tnt-brand__mark"><img src="<?php echo esc_url( tnt_img( 'logo-tnt.png' ) ); ?>" alt="Logo TNT" width="78" height="52"></span>
                     <span class="tnt-brand__text"><small>Công ty Cổ phần</small><strong>Vật tư Xây dựng <em>TNT</em></strong></span>
                 </a>
-                <p>Chuyên cung cấp sắt xây dựng, thép ống, thép hộp, thép hình U – I – V – H, thép tấm, co tê, mặt bích và van công nghiệp tại Đà Nẵng và khu vực miền Trung.</p>
+                <p>Chuyên cung cấp thép xây dựng, thép ống, thép hộp, thép hình U – I – V – H, thép tấm, co tê, mặt bích và van công nghiệp.</p>
                 <p class="mb-0 small">MST: <?php echo esc_html( $tnt['tax_code'] ); ?></p>
             </div>
             <div class="col-6 col-lg-2">
