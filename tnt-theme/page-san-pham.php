@@ -14,7 +14,7 @@ $nm_groups = array(
         'intro' => 'Các nhà máy thép xây dựng TNT cung ứng.',
         'factories' => array(
             array( 'name' => 'Hòa Phát', 'images' => array(
-                array( 'img' => 'cert-hoa-phat-ong.jpg', 'thumb' => 'cert-hoa-phat-ong-thumb.jpg', 'kind' => 'cert', 'sub' => 'Giấy chứng nhận đại lý chính thức ống thép Hòa Phát · 02/01/2023' ),
+                array( 'img' => 'cert-hoa-phat-xay-dung.jpg', 'thumb' => 'cert-hoa-phat-xay-dung-thumb.jpg', 'kind' => 'cert', 'sub' => 'Thư giới thiệu đại lý tiêu thụ thép Hòa Phát · 02/01/2026' ),
             ) ),
             array( 'name' => 'VAS', 'images' => array(
                 array( 'img' => 'cert-vas.jpg', 'thumb' => 'cert-vas-thumb.jpg', 'kind' => 'cert', 'sub' => 'Giấy chứng nhận nhà phân phối thép VAS · 01/01/2025' ),

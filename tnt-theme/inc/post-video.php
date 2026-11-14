@@ -51,19 +51,19 @@ function tnt_post_video_urls( $post_id ) {
 	return array_values( array_filter( array_map( 'trim', preg_split( '/\r\n|\r|\n/', $raw ) ) ) );
 }
 
-/** Gộp ảnh + video thành một danh sách "media" cho giao diện (ảnh trước, video sau). */
+/** Gộp ảnh + video thành một danh sách "media" cho giao diện (video trước, ảnh sau). */
 function tnt_build_media( $post_id, $images, $title ) {
 	$media = array();
-	foreach ( $images as $im ) {
-		$im['type'] = 'image';
-		$media[]    = $im;
-	}
 	foreach ( tnt_post_video_urls( $post_id ) as $url ) {
 		$v = tnt_parse_video( $url );
 		if ( $v ) {
 			$v['alt'] = $title;
 			$media[]  = $v;
 		}
+	}
+	foreach ( $images as $im ) {
+		$im['type'] = 'image';
+		$media[]    = $im;
 	}
 	return $media;
 }
@@ -94,26 +94,53 @@ function tnt_video_box_html( $post ) {
 	wp_nonce_field( 'tnt_video_save', 'tnt_video_nonce' );
 	$val = implode( "\n", tnt_post_video_urls( $post->ID ) );
 	?>
-	<p class="description" style="margin-top:0">Mỗi dòng một đường dẫn: link YouTube, Vimeo, Facebook hoặc file video (.mp4, .webm). Video hiện sau các ảnh.</p>
+	<p class="description" style="margin-top:0">Mỗi dòng một đường dẫn: link YouTube, Vimeo, Facebook hoặc file video (.mp4, .webm). Video hiện trước các ảnh.</p>
 	<textarea id="tnt-videos" name="tnt_videos" rows="4" style="width:100%" placeholder="https://www.youtube.com/watch?v=..."><?php echo esc_textarea( $val ); ?></textarea>
-	<p><button type="button" class="button" id="tnt-video-pick">Chọn video từ thư viện</button></p>
+	<?php
+	// Video đã có trong thư viện Media (tìm theo đuôi file, không phụ thuộc loại MIME WordPress ghi nhận).
+	$files = get_posts( array(
+		'post_type'      => 'attachment',
+		'post_status'    => 'any',
+		'posts_per_page' => 200,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+		'meta_query'     => array(
+			array(
+				'key'     => '_wp_attached_file',
+				'value'   => '\.(mp4|webm|ogv|ogg|mov|m4v)$',
+				'compare' => 'REGEXP',
+			),
+		),
+	) );
+	?>
+	<div style="margin-top:10px">
+		<strong>Video có trong Media</strong>
+		<?php if ( $files ) : ?>
+			<div style="max-height:180px;overflow:auto;border:1px solid #c3c4c7;padding:6px 10px;margin:6px 0;background:#fff">
+				<?php foreach ( $files as $f ) : ?>
+					<label style="display:block;padding:2px 0">
+						<input type="checkbox" class="tnt-video-opt" value="<?php echo esc_url( wp_get_attachment_url( $f->ID ) ); ?>">
+						<?php echo esc_html( $f->post_title ? $f->post_title : basename( get_attached_file( $f->ID ) ) ); ?>
+						<span class="description">(<?php echo esc_html( basename( (string) get_post_meta( $f->ID, '_wp_attached_file', true ) ) ); ?>)</span>
+					</label>
+				<?php endforeach; ?>
+			</div>
+			<button type="button" class="button" id="tnt-video-add">Thêm video đã tick vào danh sách</button>
+		<?php else : ?>
+			<p class="description">Chưa thấy file video nào trong Media.</p>
+		<?php endif; ?>
+		<a class="button" href="<?php echo esc_url( admin_url( 'media-new.php' ) ); ?>" target="_blank" rel="noopener">Tải video mới lên Media</a>
+		<span class="description">(sau khi tải xong, tải lại trang sửa bài này)</span>
+	</div>
 	<script>
 	jQuery(function ($) {
-		var frame;
-		$('#tnt-video-pick').on('click', function (e) {
-			e.preventDefault();
-			if (!frame) {
-				frame = wp.media({ title: 'Chọn video', button: { text: 'Thêm video' }, library: { type: 'video' }, multiple: 'add' });
-				frame.on('select', function () {
-					var $t = $('#tnt-videos'), cur = $.trim($t.val());
-					frame.state().get('selection').each(function (att) {
-						var u = att.toJSON().url;
-						if (cur.indexOf(u) === -1) { cur += (cur ? '\n' : '') + u; }
-					});
-					$t.val(cur);
-				});
-			}
-			frame.open();
+		$('#tnt-video-add').on('click', function () {
+			var $t = $('#tnt-videos'), cur = $.trim($t.val());
+			$('.tnt-video-opt:checked').each(function () {
+				if (cur.indexOf(this.value) === -1) { cur += (cur ? '\n' : '') + this.value; }
+				this.checked = false;
+			});
+			$t.val(cur);
 		});
 	});
 	</script>
