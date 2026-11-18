@@ -14,7 +14,7 @@ if ( ! function_exists( 'tnt_company' ) ) {
 			'capital'    => '50.000.000.000 đồng',
 			'director'   => 'Lê Văn Trung',
 			'phones'     => array( '039.444.2505', '0902.272.462',  ),
-			'email'      => 'contact@phukientnt.com',
+			'email'      => 'contact@vattutheptnt.com',
 			'locations'  => array(
 				// array(
 				// 	'label'   => 'Trụ sở chính',
